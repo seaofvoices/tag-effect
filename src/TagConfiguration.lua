@@ -163,7 +163,7 @@ function TagConfiguration:effect(tagName: string, fn: (Instance) -> Teardown): (
 
                     lastRefreshCleanup = Teardown.join(
                         object:GetPropertyChangedSignal('Parent'):Connect(refresh) :: any,
-                        if target ~= nil then (fn :: any)(target) else nil
+                        if target ~= nil then (fn :: any)(target, nil, object) else nil
                     )
                 end
 
@@ -261,7 +261,7 @@ function TagConfiguration:effect(tagName: string, fn: (Instance) -> Teardown): (
                 if useParent
                     then object:GetPropertyChangedSignal('Parent'):Connect(refresh) :: any
                     else nil,
-                if target ~= nil then (fn :: any)(target, config) else nil
+                if target ~= nil then (fn :: any)(target, config, object) else nil
             )
         end
 
