@@ -11,7 +11,18 @@ type Teardown = Teardown.Teardown
 
 local OBJECT_ATTRIBUTE_TAG = 'ObjectAttribute'
 
-export type TagConfiguration = {}
+export type TagConfiguration = {
+    targetParent: (self: TagConfiguration) -> TagConfiguration,
+    withDefaultConfig: (
+        self: TagConfiguration,
+        config: { [string]: any },
+        schema: { [string]: string }?
+    ) -> TagConfiguration,
+    withValidClass: (self: TagConfiguration, ...string) -> TagConfiguration,
+    ignoreDescendantOf: (self: TagConfiguration, ...Instance) -> TagConfiguration,
+    includeDescendantOf: (self: TagConfiguration, ...Instance) -> TagConfiguration,
+    effect: (self: TagConfiguration, tagName: string, fn: (Instance) -> Teardown) -> () -> (),
+}
 
 type Private = {
     _useParent: boolean,
@@ -25,16 +36,6 @@ type PrivateTagConfiguration = TagConfiguration & Private
 
 type TagConfigurationStatic = TagConfiguration & Private & {
     new: () -> TagConfiguration,
-    targetParent: (self: TagConfiguration) -> TagConfiguration,
-    withDefaultConfig: (
-        self: TagConfiguration,
-        config: { [string]: any },
-        schema: { [string]: string }?
-    ) -> TagConfiguration,
-    withValidClass: (self: TagConfiguration, ...string) -> TagConfiguration,
-    ignoreDescendantOf: (self: TagConfiguration, ...Instance) -> TagConfiguration,
-    includeDescendantOf: (self: TagConfiguration, ...Instance) -> TagConfiguration,
-    effect: (self: TagConfiguration, tagName: string, fn: (Instance) -> Teardown) -> () -> (),
 }
 
 local TagConfiguration: TagConfigurationStatic = {} :: any
