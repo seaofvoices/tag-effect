@@ -7,27 +7,28 @@ type Teardown = Teardown.Teardown
 local function createTagEffect(tagName: string, fn: (Instance) -> Teardown): () -> ()
     local taggedTeardowns = {}
 
-    local addedConnection = CollectionService:GetInstanceAddedSignal(tagName)
-        :Connect(function(instance: Instance)
-            if _G.DEBUG_TAG_EFFECT then
-                print(
-                    `new instance '{instance.Name}' tagged {tagName}`
-                        .. if instance.Parent then ` ({instance.Parent:GetFullName()})` else ''
-                )
-            end
-            local bin = taggedTeardowns[tagName]
-            if bin == nil then
-                bin = {}
-                taggedTeardowns[tagName] = bin
-            end
+    local function onTagAdded(instance: Instance)
+        if _G.DEBUG_TAG_EFFECT then
+            print(
+                `new instance '{instance.Name}' tagged {tagName}`
+                    .. if instance.Parent then ` ({instance.Parent:GetFullName()})` else ''
+            )
+        end
+        local bin = taggedTeardowns[tagName]
+        if bin == nil then
+            bin = {}
+            taggedTeardowns[tagName] = bin
+        end
 
-            if bin[instance] ~= nil then
-                Teardown.teardown(bin[instance])
-                bin[instance] = nil
-            end
+        if bin[instance] ~= nil then
+            Teardown.teardown(bin[instance])
+            bin[instance] = nil
+        end
 
-            bin[instance] = fn(instance)
-        end)
+        bin[instance] = fn(instance)
+    end
+
+    local addedConnection = CollectionService:GetInstanceAddedSignal(tagName):Connect(onTagAdded)
 
     local removedConnection = CollectionService:GetInstanceRemovedSignal(tagName)
         :Connect(function(instance: Instance)
@@ -43,13 +44,7 @@ local function createTagEffect(tagName: string, fn: (Instance) -> Teardown): () 
         end)
 
     for _, current in CollectionService:GetTagged(tagName) do
-        if _G.DEBUG_TAG_EFFECT then
-            print(
-                `apply tag '{tagName}' to existing instance '{current.Name}'`
-                    .. if current.Parent then ` ({current.Parent:GetFullName()})` else ''
-            )
-        end
-        xpcall(fn, function(err)
+        xpcall(onTagAdded, function(err)
             warn(
                 `unable to apply tag '{tagName}' on {current.Name} ({current:GetFullName()}): {err}`
             )

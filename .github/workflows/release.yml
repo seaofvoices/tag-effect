@@ -27,7 +27,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: latest
+          node-version: 22
           cache: yarn
           cache-dependency-path: yarn.lock
 
@@ -110,7 +110,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: latest
+          node-version: 22
           cache: yarn
           cache-dependency-path: yarn.lock
 
