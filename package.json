@@ -1,6 +1,6 @@
 {
   "name": "@seaofvoices/tag-effect",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A Luau library to apply effects to tagged Roblox instances",
   "license": "MIT",
   "author": "jeparlefrancais <jeparlefrancais21@gmail.com>",
