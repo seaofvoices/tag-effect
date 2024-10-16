@@ -1,5 +1,7 @@
 # Changelog
 
+## 0.1.2
+
 - fix already tagged instances cleanup ([#5](https://github.com/seaofvoices/generator-luau/pull/5))
 
 ## 0.1.1
