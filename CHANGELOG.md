@@ -1,5 +1,7 @@
 # Changelog
 
+## 0.1.3
+
 - fix tag configuration effect cleanup to happen only once ([#7](https://github.com/seaofvoices/generator-luau/pull/7))
 
 ## 0.1.2
