@@ -148,8 +148,9 @@ function TagConfiguration:effect(tagName: string, fn: (Instance) -> Teardown): (
                 local lastRefreshCleanup: Teardown = nil
 
                 local function refresh()
-                    Teardown.teardown(lastRefreshCleanup)
+                    local currentCleanup = lastRefreshCleanup
                     lastRefreshCleanup = nil
+                    Teardown.teardown(currentCleanup)
 
                     local target = if useParent then object.Parent else object
 
@@ -170,7 +171,9 @@ function TagConfiguration:effect(tagName: string, fn: (Instance) -> Teardown): (
                 refresh()
 
                 return function()
-                    Teardown.teardown(lastRefreshCleanup)
+                    local currentCleanup = lastRefreshCleanup
+                    lastRefreshCleanup = nil
+                    Teardown.teardown(currentCleanup)
                 end
             else
                 return fn(object)
@@ -180,8 +183,9 @@ function TagConfiguration:effect(tagName: string, fn: (Instance) -> Teardown): (
         local lastRefreshCleanup: Teardown = nil
 
         local function refresh()
-            Teardown.teardown(lastRefreshCleanup)
+            local currentCleanup = lastRefreshCleanup
             lastRefreshCleanup = nil
+            Teardown.teardown(currentCleanup)
 
             local target = if useParent then object.Parent else object
 
@@ -268,7 +272,9 @@ function TagConfiguration:effect(tagName: string, fn: (Instance) -> Teardown): (
         refresh()
 
         return function()
-            Teardown.teardown(lastRefreshCleanup)
+            local currentCleanup = lastRefreshCleanup
+            lastRefreshCleanup = nil
+            Teardown.teardown(currentCleanup)
         end
     end)
 end
