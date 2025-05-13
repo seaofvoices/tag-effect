@@ -1,5 +1,7 @@
 # Changelog
 
+## 0.1.4
+
 - use `.luau` file extension ([#10](https://github.com/seaofvoices/tag-effect/pull/10))
 - fix instance class validation bug ([#9](https://github.com/seaofvoices/tag-effect/pull/9))
 
