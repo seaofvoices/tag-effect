@@ -152,13 +152,11 @@ function TagConfiguration:effect(tagName: string, fn: (Instance) -> Teardown): (
                     lastRefreshCleanup = nil
                     Teardown.teardown(currentCleanup)
 
-                    local target = if useParent then object.Parent else object
+                    local target = object.Parent
 
                     if target ~= nil and validateClasses and not validateClasses(target) then
-                        if useParent then
-                            lastRefreshCleanup =
-                                object:GetPropertyChangedSignal('Parent'):Connect(refresh) :: any
-                        end
+                        lastRefreshCleanup =
+                            object:GetPropertyChangedSignal('Parent'):Connect(refresh) :: any
                         return
                     end
 
@@ -176,6 +174,10 @@ function TagConfiguration:effect(tagName: string, fn: (Instance) -> Teardown): (
                     Teardown.teardown(currentCleanup)
                 end
             else
+                if validateClasses and not validateClasses(object) then
+                    return nil
+                end
+
                 return fn(object)
             end
         end
@@ -265,7 +267,10 @@ function TagConfiguration:effect(tagName: string, fn: (Instance) -> Teardown): (
                 if useParent
                     then object:GetPropertyChangedSignal('Parent'):Connect(refresh) :: any
                     else nil,
-                if target ~= nil then (fn :: any)(target, config, object) else nil
+                if target == nil
+                    then nil
+                    elseif useParent then (fn :: any)(target, config, object)
+                    else (fn :: any)(target, config)
             )
         end
 

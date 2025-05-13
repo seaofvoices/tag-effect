@@ -101,9 +101,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: Roblox/setup-foreman@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: CompeyDev/setup-rokit@v0.1.2
 
       - name: Enable corepack
         run: corepack enable
@@ -124,7 +122,7 @@ jobs:
         run: yarn run build
 
       - name: Upload asset
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.artifact-name }}
           path: ${{ matrix.path }}
