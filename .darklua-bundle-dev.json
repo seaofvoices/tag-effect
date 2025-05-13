@@ -1,11 +1,6 @@
 {
   "bundle": {
-    "require_mode": {
-      "name": "path",
-      "sources": {
-        "@pkg": "node_modules/.luau-aliases"
-      }
-    }
+    "require_mode": "path"
   },
   "rules": [
     "remove_types",
