@@ -1,8 +1,14 @@
+<div align="center">
+
 [![checks](https://github.com/seaofvoices/tag-effect/actions/workflows/test.yml/badge.svg)](https://github.com/seaofvoices/tag-effect/actions/workflows/test.yml)
 ![version](https://img.shields.io/github/package-json/v/seaofvoices/tag-effect)
 [![GitHub top language](https://img.shields.io/github/languages/top/seaofvoices/tag-effect)](https://github.com/luau-lang/luau)
 ![license](https://img.shields.io/npm/l/@seaofvoices/tag-effect)
 ![npm](https://img.shields.io/npm/dt/@seaofvoices/tag-effect)
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/seaofvoices)
+
+</div>
 
 # TagEffect
 

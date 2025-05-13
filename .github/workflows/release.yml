@@ -82,12 +82,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - artifact-name: tag-effect.lua
-            path: build/tag-effect.lua
+          - artifact-name: tag-effect.luau
+            path: build/tag-effect.luau
             asset-type: text/plain
 
-          - artifact-name: tag-effect-dev.lua
-            path: build/debug/tag-effect.lua
+          - artifact-name: tag-effect-dev.luau
+            path: build/debug/tag-effect.luau
             asset-type: text/plain
 
           - artifact-name: tag-effect.rbxm
